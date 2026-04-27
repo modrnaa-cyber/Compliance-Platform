@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliance Platform</title>
+
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <path d="M24 4L40 10V22C40 31 33.5 39 24 44C14.5 39 8 31 8 22V10L24 4Z" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M18 24L22 28L31 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Automated GRC Assessment</p>
+        <h1>Compliance Platform</h1>
+      </div>
+    </div>
+
+    <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
+      <span>Theme</span>
+    </button>
+  </header>
+
+  <main id="main-content" class="page">
+    <section class="hero card">
+      <div class="hero-copy">
+        <p class="section-label">Operational Dashboard</p>
+        <h2>Assess security exposure and map it directly to compliance gaps.</h2>
+        <p class="hero-text">
+          Run a real assessment against a target host, merge technical findings with cached vulnerability intelligence,
+          and calculate a measurable compliance score.
+        </p>
+      </div>
+
+      <form id="assessment-form" class="assessment-form">
+        <div class="field">
+          <label for="target">Target Domain / IP</label>
+          <input id="target" name="target" type="text" placeholder="e.g. scanme.nmap.org or 192.168.1.10" required>
+        </div>
+
+        <div class="field">
+          <label for="scan_profile">Scan Profile</label>
+          <select id="scan_profile" name="scan_profile">
+            <option value="quick">Quick</option>
+            <option value="standard" selected>Standard</option>
+            <option value="deep">Deep</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Run Assessment</button>
+        <p id="form-status" class="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="results-section" class="results hidden">
+      <div class="stats-grid">
+        <article class="stat-card card">
+          <p class="stat-label">Final Score</p>
+          <h3 id="final-score">--</h3>
+        </article>
+
+        <article class="stat-card card">
+          <p class="stat-label">Total Deduction</p>
+          <h3 id="total-deduction">--</h3>
+        </article>
+
+        <article class="stat-card card">
+          <p class="stat-label">Posture</p>
+          <h3 id="posture">--</h3>
+        </article>
+
+        <article class="stat-card card">
+          <p class="stat-label">Total Findings</p>
+          <h3 id="total-findings">--</h3>
+        </article>
+      </div>
+
+      <div class="details-grid">
+        <article class="card">
+          <div class="card-header">
+            <h3>Executive Summary</h3>
+          </div>
+          <div id="executive-summary" class="summary-list"></div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>Severity Breakdown</h3>
+          </div>
+          <div id="severity-summary" class="severity-list"></div>
+        </article>
+      </div>
+
+      <article class="card">
+        <div class="card-header">
+          <h3>Compliance Gaps</h3>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Finding</th>
+                <th>Service</th>
+                <th>Risk</th>
+                <th>NCA Control</th>
+                <th>Source</th>
+                <th>Deduction</th>
+                <th>Remediation</th>
+              </tr>
+            </thead>
+            <tbody id="gaps-table-body">
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>

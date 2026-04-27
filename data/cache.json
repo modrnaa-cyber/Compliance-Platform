@@ -1,0 +1,27 @@
+{
+  "192.168.1.10": [
+    {
+      "title": "Outdated Apache Server",
+      "service": "http",
+      "severity": "High",
+      "description": "Detected outdated Apache version with known vulnerabilities.",
+      "source": "Nessus Cache"
+    },
+    {
+      "title": "Weak Remote Desktop Configuration",
+      "service": "rdp",
+      "severity": "High",
+      "description": "RDP service detected with weak hardening settings.",
+      "source": "Nessus Cache"
+    }
+  ],
+  "test.local": [
+    {
+      "title": "Telnet Service Exposure",
+      "service": "telnet",
+      "severity": "Critical",
+      "description": "Telnet is enabled and transmitting data without encryption.",
+      "source": "Nessus Cache"
+    }
+  ]
+}
