@@ -1,11 +1,16 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()
-
+load_dotenv(find_dotenv())
 
 class Config:
-    APP_NAME = os.getenv("APP_NAME", "Compliance Platform")
-    DEBUG = os.getenv("FLASK_DEBUG", "True").lower() == "true"
-    HOST = os.getenv("FLASK_HOST", "127.0.0.1")
-    PORT = int(os.getenv("FLASK_PORT", 5000))
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
+
+    HOST = os.getenv("HOST", "127.0.0.1")
+    PORT = int(os.getenv("PORT", "5000"))
+    DEBUG = os.getenv("DEBUG", "true").lower() == "true"
+
+    NESSUS_URL = os.getenv("NESSUS_URL", "https://localhost:8834")
+    NESSUS_ACCESS_KEY = os.getenv("NESSUS_ACCESS_KEY")
+    NESSUS_SECRET_KEY = os.getenv("NESSUS_SECRET_KEY")
+    NESSUS_VERIFY_SSL = os.getenv("NESSUS_VERIFY_SSL", "false").lower() == "true"

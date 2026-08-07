@@ -1,128 +1,92 @@
-import os
-import subprocess
-import tempfile
-import xml.etree.ElementTree as ET
+import time
+import re
+import nmap
 
 
-def get_nmap_command(scan_profile, target, xml_output_path):
-    if scan_profile == "quick":
-        return ["nmap", "-Pn", "-F", "-sV", "-oX", xml_output_path, target]
+class NmapService:
+    def __init__(self):
+        self.scanner = nmap.PortScanner()
 
-    if scan_profile == "standard":
-        return ["nmap", "-Pn", "--top-ports", "1000", "-sV", "-oX", xml_output_path, target]
+    def _arguments_by_mode(self, mode):
+        profiles = {
+            "quick_internal": "-Pn -T4 --top-ports 100 -sV --script vulners",
+            "standard_internal": "-Pn -T4 --top-ports 1000 -sV -O --script vulners",
+            "deep_internal": "-Pn -T4 -p- -sV -O --script vulners"
+        }
 
-    if scan_profile == "deep":
-        return ["nmap", "-Pn", "-p-", "-sV", "-T4", "-oX", xml_output_path, target]
+        return profiles.get(mode, profiles["standard_internal"])
 
-    return ["nmap", "-Pn", "--top-ports", "1000", "-sV", "-oX", xml_output_path, target]
+    def _extract_cves(self, script_output):
+        if not script_output:
+            return []
 
+        matches = re.findall(r"CVE-\d{4}-\d{4,7}", script_output)
 
-def parse_nmap_xml(xml_path):
-    findings = []
-    host_summary = {
-        "addresses": [],
-        "hostnames": [],
-        "status": "unknown"
-    }
+        unique_cves = []
+        for cve in matches:
+            if cve not in unique_cves:
+                unique_cves.append(cve)
 
-    tree = ET.parse(xml_path)
-    root = tree.getroot()
+        return unique_cves
 
-    for host in root.findall("host"):
-        status_tag = host.find("status")
-        if status_tag is not None:
-            host_summary["status"] = status_tag.get("state", "unknown")
+    def scan_target(self, target, mode="standard_internal"):
+        arguments = self._arguments_by_mode(mode)
 
-        for address in host.findall("address"):
-            addr = address.get("addr")
-            if addr:
-                host_summary["addresses"].append(addr)
+        started_at = time.time()
 
-        hostnames_tag = host.find("hostnames")
-        if hostnames_tag is not None:
-            for hostname in hostnames_tag.findall("hostname"):
-                name = hostname.get("name")
-                if name:
-                    host_summary["hostnames"].append(name)
-
-        ports_tag = host.find("ports")
-        if ports_tag is not None:
-            for port in ports_tag.findall("port"):
-                state = port.find("state")
-                service = port.find("service")
-
-                if state is not None and state.get("state") == "open":
-                    findings.append({
-                        "port": int(port.get("portid")),
-                        "protocol": port.get("protocol", "tcp"),
-                        "service": service.get("name", "unknown") if service is not None else "unknown",
-                        "product": service.get("product", "") if service is not None else "",
-                        "version": service.get("version", "") if service is not None else "",
-                        "extrainfo": service.get("extrainfo", "") if service is not None else "",
-                        "state": state.get("state", "unknown")
-                    })
-
-    return findings, host_summary
-
-
-def run_nmap_scan(target, scan_profile):
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".xml") as temp_file:
-        xml_output_path = temp_file.name
-
-    command = get_nmap_command(scan_profile, target, xml_output_path)
-
-    try:
-        result = subprocess.run(
-            command,
-            capture_output=True,
-            text=True,
-            timeout=180
+        self.scanner.scan(
+            hosts=target,
+            arguments=arguments
         )
 
-        if result.returncode != 0:
-            return {
-                "target": target,
-                "scan_profile": scan_profile,
-                "port_scope": scan_profile,
-                "scanner": "nmap-real",
-                "findings": [],
-                "host_summary": {},
-                "error": result.stderr.strip() or "Nmap scan failed"
+        ended_at = time.time()
+
+        hosts = []
+        total_open_ports = 0
+
+        for host in self.scanner.all_hosts():
+            host_record = {
+                "ip": host,
+                "hostname": self.scanner[host].hostname(),
+                "state": self.scanner[host].state(),
+                "ports": []
             }
 
-        findings, host_summary = parse_nmap_xml(xml_output_path)
+            for proto in self.scanner[host].all_protocols():
+                ports = self.scanner[host][proto].keys()
+
+                for port in sorted(ports):
+                    port_info = self.scanner[host][proto][port]
+                    state = port_info.get("state", "unknown")
+
+                    if state == "open":
+                        total_open_ports += 1
+
+                    scripts = port_info.get("script", {})
+                    vulners_output = scripts.get("vulners", "")
+
+                    cves = self._extract_cves(vulners_output)
+
+                    host_record["ports"].append({
+                        "port": port,
+                        "protocol": proto,
+                        "state": state,
+                        "service": port_info.get("name", "unknown"),
+                        "product": port_info.get("product", ""),
+                        "version": port_info.get("version", ""),
+                        "extrainfo": port_info.get("extrainfo", ""),
+                        "cves": cves
+                    })
+
+            hosts.append(host_record)
+
+        duration = round(ended_at - started_at, 2)
 
         return {
             "target": target,
-            "scan_profile": scan_profile,
-            "port_scope": scan_profile,
-            "scanner": "nmap-real",
-            "host_summary": host_summary,
-            "findings": findings
+            "mode": mode,
+            "arguments": arguments,
+            "hosts": hosts,
+            "scan_duration": duration,
+            "total_open_ports": total_open_ports
         }
-
-    except subprocess.TimeoutExpired:
-        return {
-            "target": target,
-            "scan_profile": scan_profile,
-            "port_scope": scan_profile,
-            "scanner": "nmap-real",
-            "findings": [],
-            "host_summary": {},
-            "error": "Nmap scan timed out"
-        }
-
-    except FileNotFoundError:
-        return {
-            "target": target,
-            "scan_profile": scan_profile,
-            "port_scope": scan_profile,
-            "scanner": "nmap-real",
-            "findings": [],
-            "host_summary": {},
-            "error": "Nmap is not installed or not available in PATH"
-        }
-
-    finally:
-        if os.path.exists(xml_output_path):
-            os.remove(xml_output_path)

@@ -1,0 +1,131 @@
+{
+  "version": "1.0",
+  "framework": "NCA-ECC",
+  "deduction_model": {
+    "Critical": 15,
+    "High": 10,
+    "Medium": 5,
+    "Low": 2
+  },
+  "service_rules": [
+    {
+      "service": "telnet",
+      "control_id": "NCA-ECC-1-3-1",
+      "control_name": "Secure Protocols",
+      "risk_level": "Critical",
+      "deduction": 15,
+      "remediation": "Disable Telnet immediately and replace with SSH for secure administrative access."
+    },
+    {
+      "service": "ftp",
+      "control_id": "NCA-ECC-1-3-1",
+      "control_name": "Secure Protocols",
+      "risk_level": "High",
+      "deduction": 10,
+      "remediation": "Disable FTP and replace with SFTP or SSH-based secure file transfer."
+    },
+    {
+      "service": "http",
+      "control_id": "NCA-ECC-2-1-1",
+      "control_name": "Secure Configuration and Hardening",
+      "risk_level": "High",
+      "deduction": 10,
+      "remediation": "Redirect HTTP to HTTPS, enforce TLS, and disable insecure plaintext web access."
+    },
+    {
+      "service": "rdp",
+      "control_id": "NCA-ECC-2-2-2",
+      "control_name": "Remote Access Protection",
+      "risk_level": "Critical",
+      "deduction": 15,
+      "remediation": "Restrict RDP exposure, enforce MFA, limit source IPs, and harden remote access settings."
+    },
+    {
+      "service": "ssh",
+      "control_id": "NCA-ECC-2-2-1",
+      "control_name": "Access Control and Secure Administration",
+      "risk_level": "Medium",
+      "deduction": 5,
+      "remediation": "Restrict SSH access to authorized administrators only, enforce key-based authentication."
+    },
+    {
+      "service": "smb",
+      "control_id": "NCA-ECC-3-1-1",
+      "control_name": "Network Segmentation and Service Exposure",
+      "risk_level": "High",
+      "deduction": 10,
+      "remediation": "Restrict SMB exposure to internal networks, disable SMBv1, and enforce signing."
+    },
+    {
+      "service": "dns",
+      "control_id": "NCA-ECC-5-1-1",
+      "control_name": "Infrastructure Service Protection",
+      "risk_level": "Medium",
+      "deduction": 5,
+      "remediation": "Restrict DNS zone transfers, enable DNSSEC, and harden resolver configuration."
+    },
+    {
+      "service": "smtp",
+      "control_id": "NCA-ECC-5-1-1",
+      "control_name": "Infrastructure Service Protection",
+      "risk_level": "Medium",
+      "deduction": 5,
+      "remediation": "Enforce SMTP authentication and TLS encryption for mail relay."
+    },
+    {
+      "service": "vnc",
+      "control_id": "NCA-ECC-2-2-2",
+      "control_name": "Remote Access Protection",
+      "risk_level": "Critical",
+      "deduction": 15,
+      "remediation": "Disable VNC or tunnel through encrypted VPN. Enforce strong authentication."
+    },
+    {
+      "service": "mysql",
+      "control_id": "NCA-ECC-3-1-1",
+      "control_name": "Database Exposure Control",
+      "risk_level": "High",
+      "deduction": 10,
+      "remediation": "Restrict MySQL to internal access only, enforce authentication, and disable remote root login."
+    },
+    {
+      "service": "postgres",
+      "control_id": "NCA-ECC-3-1-1",
+      "control_name": "Database Exposure Control",
+      "risk_level": "High",
+      "deduction": 10,
+      "remediation": "Restrict PostgreSQL to internal access, enforce pg_hba.conf rules and SSL connections."
+    },
+    {
+      "service": "snmp",
+      "control_id": "NCA-ECC-2-1-1",
+      "control_name": "Configuration Hardening",
+      "risk_level": "High",
+      "deduction": 10,
+      "remediation": "Disable SNMPv1/v2 community strings, enforce SNMPv3 with authentication and encryption."
+    },
+    {
+      "service": "netbios",
+      "control_id": "NCA-ECC-3-1-1",
+      "control_name": "Network Segmentation and Service Exposure",
+      "risk_level": "Medium",
+      "deduction": 5,
+      "remediation": "Disable NetBIOS over TCP/IP if not required for legacy applications."
+    },
+    {
+      "service": "https",
+      "control_id": "NCA-ECC-2-1-1",
+      "control_name": "Secure Configuration and Hardening",
+      "risk_level": "Low",
+      "deduction": 2,
+      "remediation": "Verify TLS version and cipher strength. Disable TLS 1.0/1.1 and weak cipher suites."
+    }
+  ],
+  "default_rule": {
+    "control_id": "NCA-GEN-01",
+    "control_name": "General Security Review",
+    "risk_level": "Low",
+    "deduction": 2,
+    "remediation": "Review service configuration, validate business need, and apply hardening per organizational policy."
+  }
+}
