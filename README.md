@@ -1,3 +1,6 @@
+Author Azzam Alharbi 
+
+LinkedIn : linkedin.com/in/azzam-alharbi7
 
 # 🛡️ Compliance Platform
 
@@ -92,5 +95,4 @@ python app.py
 4. راجع النتائج وصدّر تقرير الامتثال
 
 </div>
-Author Azzam Alharbi 
-LinkedIn : linkedin.com/in/azzam-alharbi7
+
