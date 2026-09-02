@@ -7,18 +7,17 @@ Automated cybersecurity compliance assessment and risk management platform. Runs
 🚧 **Status:** Under active development
 
 ## Screenshots
+<img width="1255" height="1232" alt="image" src="https://github.com/user-attachments/assets/3b1a214e-988f-42fe-9c62-7fc6a923429d" />
 
-<img width="721" height="1184" alt="image" src="https://github.com/user-attachments/assets/af3f5322-0fbb-43b3-aabc-7f1502111be4" />
 
 ![Assessment Service]
-<img width="274" height="479" alt="image" src="https://github.com/user-attachments/assets/1c95c34a-c15c-4df9-86e9-25a7216788c2" />
 
-<img width="978" height="611" alt="image" src="https://github.com/user-attachments/assets/7615cb15-6155-42e5-aa05-21f6efe5a46c" />
+<img width="413" height="520" alt="image" src="https://github.com/user-attachments/assets/16ab1efa-0c5a-4cb7-9cbb-4832d8f4a807" />
 
+<img width="1128" height="465" alt="image" src="https://github.com/user-attachments/assets/34782044-b2cc-466e-8d7e-8a6462d806d6" />
 
-<img width="986" height="602" alt="image" src="https://github.com/user-attachments/assets/ca34c67a-4d7a-4871-9234-45bdbc7148dd" />
-<img width="975" height="410" alt="image" src="https://github.com/user-attachments/assets/ec4004fa-95e7-4dec-8c84-b7efaf460103" />
-<img width="749" height="119" alt="image" src="https://github.com/user-attachments/assets/7ca48c90-fba7-4ff6-9809-7dac0e3c74dc" />
+<img width="1185" height="520" alt="image" src="https://github.com/user-attachments/assets/fb13fa09-63a4-4b14-afe4-4184e9109398" />
+
 
 ## Features
 
