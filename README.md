@@ -72,9 +72,13 @@ Python · Flask · REST APIs · Nmap · OpenVAS · HTML/CSS/JS
 
 \`\`\`bash
 python -m venv venv
+
 venv\Scripts\activate
+
 pip install -r requirements.txt
+
 python app.py
+
 \`\`\`
 
 <div dir="rtl">
