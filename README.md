@@ -55,13 +55,6 @@ python app.py
 
 🚧 **الحالة:** المشروع تحت التطوير
 
-## لقطات من الواجهة
-<img width="721" height="1184" alt="image" src="https://github.com/user-attachments/assets/63e9fdb9-f2a8-4e50-8bc5-840aa6cb8e4f" />
-
-
-<img width="274" height="479" alt="image" src="https://github.com/user-attachments/assets/35930679-d450-4ead-93d1-181a66abdc1d" />
-
-
 ## المزايا
 
 - فحص متعدد المحركات: Nmap، OpenVAS، WhatWeb، testssl.sh
