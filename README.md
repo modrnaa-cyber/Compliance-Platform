@@ -6,9 +6,17 @@ Automated cybersecurity compliance assessment and risk management platform. Runs
 
 ## Screenshots
 
-![Dashboard](اسم_صورة_الواجهة.jpg)
+<img width="721" height="1184" alt="image" src="https://github.com/user-attachments/assets/af3f5322-0fbb-43b3-aabc-7f1502111be4" />
 
-![Assessment Service](اسم_صورة_الخدمات.jpg)
+![Assessment Service]
+<img width="274" height="479" alt="image" src="https://github.com/user-attachments/assets/1c95c34a-c15c-4df9-86e9-25a7216788c2" />
+
+<img width="978" height="611" alt="image" src="https://github.com/user-attachments/assets/7615cb15-6155-42e5-aa05-21f6efe5a46c" />
+
+
+<img width="986" height="602" alt="image" src="https://github.com/user-attachments/assets/ca34c67a-4d7a-4871-9234-45bdbc7148dd" />
+<img width="975" height="410" alt="image" src="https://github.com/user-attachments/assets/ec4004fa-95e7-4dec-8c84-b7efaf460103" />
+<img width="749" height="119" alt="image" src="https://github.com/user-attachments/assets/7ca48c90-fba7-4ff6-9809-7dac0e3c74dc" />
 
 ## Features
 
@@ -48,9 +56,11 @@ python app.py
 🚧 **الحالة:** المشروع تحت التطوير
 
 ## لقطات من الواجهة
+<img width="721" height="1184" alt="image" src="https://github.com/user-attachments/assets/63e9fdb9-f2a8-4e50-8bc5-840aa6cb8e4f" />
 
-![خدمات الفحص]
+
 <img width="274" height="479" alt="image" src="https://github.com/user-attachments/assets/35930679-d450-4ead-93d1-181a66abdc1d" />
+
 
 ## المزايا
 
