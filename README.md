@@ -1,3 +1,5 @@
+By Azzam alharbi 
+
 # 🛡️ Compliance Platform
 
 Automated cybersecurity compliance assessment and risk management platform. Runs multi-engine security scans (Nmap, OpenVAS, WhatWeb, testssl.sh) and maps findings directly to NCA ECC 2-2024 controls.
