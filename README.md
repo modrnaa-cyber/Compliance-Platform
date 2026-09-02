@@ -71,6 +71,7 @@ Python · Flask · REST APIs · Nmap · OpenVAS · HTML/CSS/JS
 </div>
 
 \`\`\`bash
+
 python -m venv venv
 
 venv\Scripts\activate
